@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>АВИЛ — Комплексное оснащение образовательных учреждений</title>
+<style>
+  :root{
+    --navy:#1b2b52;
+    --navy-dark:#14203e;
+    --green:#1f6b3d;
+    --green-dark:#175030;
+    --cream:#ffffff;
+    --text:#2b2f3a;
+    --muted:#6b7280;
+    --card-bg:#ffffff;
+    --border:#e7e3da;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  html, body{max-width:100%;overflow-x:hidden;}
+  img{max-width:100%;display:block;}
+  body{
+    font-family:'Segoe UI',Arial,sans-serif;
+    color:var(--text);
+    background:#ffffff;
+    line-height:1.5;
+  }
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+  .container{max-width:1600px;margin:0 auto;padding:0 24px;}
+  .btn{
+    display:inline-block;
+    padding:14px 28px;
+    border-radius:8px;
+    font-weight:600;
+    font-size:15px;
+    cursor:pointer;
+    border:2px solid transparent;
+    transition:all .2s ease;
+  }
+  .btn-green{background:var(--green);color:#fff;}
+  .btn-green:hover{background:var(--green-dark);transform:translateY(-1px);}
+  .btn-outline{background:transparent;border-color:var(--green);color:var(--green);}
+  .btn-outline:hover{background:var(--green);color:#fff;}
+
+  /* HEADER */
+  header{
+    position:sticky;top:0;z-index:100;
+    background:#ffffff;
+    border-bottom:1px solid var(--border);
+  }
+  .header-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:10px 24px;max-width:1600px;margin:0 auto;
+  }
+  .logo{display:flex;align-items:center;}
+  .logo-photo{
+    height:88px;
+    width:auto;
+    max-width:340px;
+    object-fit:contain;
+    display:block;
+  }
+  .logo-photo--footer{height:68px;}
+  .logo-svg{
+    height:78px;
+    width:auto;
+    display:block;
+  }
+  .logo-svg text{
+    font-family:Georgia,'Times New Roman',serif;
+    font-style:italic;
+    font-weight:700;
+    font-size:46px;
+    fill:var(--navy);
+  }
+  nav ul{display:flex;gap:32px;}
+  nav a{font-size:15px;font-weight:500;color:var(--text);transition:color .2s;}
+  nav a:hover{color:var(--green);}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+  .burger span{width:26px;height:2px;background:var(--navy);display:block;}
+
+  /* HERO */
+  .hero{
+    background:#ffffff;
+    padding:60px 0 40px;
+    position:relative;
+    overflow:hidden;
+    min-height:560px;
+    display:flex;
+    align-items:center;
+  }
+  .hero-inner{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:48px;
+    align-items:center;
+    position:relative;
+    z-index:3;
+    width:100%;
+  }
+  .hero-text{max-width:520px;}
+  .hero h1{
+    font-size:clamp(30px, 7vw, 62px);
+    font-weight:800;
+    color:var(--navy);
+    line-height:1.12;
+    margin-bottom:28px;
+  }
+  .hero p{
+    color:#3f4f7a;
+    font-size:clamp(16px, 4vw, 22px);
+    margin-bottom:40px;
+    max-width:560px;
+    line-height:1.5;
+  }
+  .hero-slogan{
+    font-style:italic;
+    font-weight:700;
+    font-size:clamp(14px, 3.5vw, 19px);
+    color:var(--green-dark);
+    border-left:3px solid var(--green);
+    padding-left:16px;
+    margin-bottom:32px;
+    line-height:1.4;
+  }
+  .hero-buttons{display:flex;gap:16px;flex-wrap:nowrap;}
+  .hero-buttons .btn{padding:15px 26px;font-size:15px;white-space:nowrap;}
+
+  /* HERO PHOTO — bleeds to the right edge of the viewport, white diagonal cut on the left */
+  .hero-photo-bleed{
+    position:absolute;
+    top:0;right:0;bottom:0;
+    width:58%;
+    z-index:1;
+  }
+  .hero-image-inner{
+    position:relative;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#e9e2d3;
+    /* soft left-edge fade into white — mask goes from transparent (hides photo, shows white bg) to opaque (shows photo) */
+    -webkit-mask-image:linear-gradient(100deg, transparent 0%, transparent 6%, black 42%);
+    mask-image:linear-gradient(100deg, transparent 0%, transparent 6%, black 42%);
+  }
+  .hero-image-inner img{
+    width:100%;height:100%;object-fit:cover;display:block;
+  }
+  .hero-image-inner .upload-placeholder{
+    width:100%;height:100%;
+  }
+  /* white diagonal cut on the left edge of the photo, blending into the page background */
+  .hero-badge{
+    position:absolute;
+    right:28px;bottom:28px;
+    background:var(--navy);
+    color:#fff;
+    font-weight:800;
+    font-size:20px;
+    letter-spacing:1px;
+    padding:10px 20px;
+    border-radius:10px;
+    box-shadow:0 10px 24px rgba(20,30,60,.35);
+    z-index:3;
+  }
+  .hero-badge-photo{
+    position:absolute;
+    right:28px;bottom:28px;
+    max-height:64px;
+    max-width:180px;
+    width:auto;
+    height:auto;
+    border-radius:10px;
+    box-shadow:0 10px 24px rgba(20,30,60,.35);
+    z-index:3;
+    display:block;
+  }
+
+  /* Photo slot: shows images/<file> automatically, falls back to a hint if the file is missing */
+  .photo-slot{
+    position:relative;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+  }
+  .photo-slot img{
+    width:100%;height:100%;object-fit:cover;display:block;
+  }
+  .photo-slot-hint{
+    display:none;
+    position:absolute;inset:0;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    background:repeating-linear-gradient(135deg,#f0ece1,#f0ece1 10px,#e9e2d3 10px,#e9e2d3 20px);
+    border:2px dashed #c9c0aa;
+    color:#8b8060;
+    text-align:center;
+    padding:12px;
+  }
+  .photo-slot-hint .upload-icon{font-size:26px;line-height:1;}
+  .photo-slot-hint span{font-size:12px;font-weight:600;max-width:170px;line-height:1.5;}
+  .photo-slot-hint b{color:var(--green-dark);}
+  .photo-slot.empty .photo-slot-hint{display:flex;}
+
+  /* DIRECTIONS */
+  .section{padding:80px 0;}
+  .section-title{
+    text-align:center;
+    font-size:30px;
+    font-weight:800;
+    color:var(--navy);
+    margin-bottom:48px;
+    position:relative;
+  }
+  .section-title::before, .section-title::after{
+    content:"";
+    display:inline-block;
+    width:60px;height:2px;
+    background:var(--navy);
+    vertical-align:middle;
+    margin:0 20px;
+  }
+  .cards-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:28px;
+  }
+  .card{
+    background:#ffffff;
+    border:1.5px solid #d8d2c2;
+    border-radius:14px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 16px 32px rgba(20,30,60,.1);
+  }
+  .card-media{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/9;
+    background:var(--cream);
+    border-bottom:1px solid var(--border);
+  }
+  .card-body{
+    padding:20px 22px 22px;
+    display:flex;
+    flex-direction:column;
+    flex-grow:1;
+  }
+  .card h3{
+    font-size:17px;
+    color:var(--navy);
+    margin-bottom:10px;
+    line-height:1.3;
+  }
+  .card p{
+    font-size:14px;
+    color:var(--muted);
+    flex-grow:1;
+    margin-bottom:16px;
+  }
+  .card-link{
+    font-size:14px;
+    font-weight:600;
+    color:var(--green);
+  }
+  .card-link:hover{text-decoration:underline;}
+
+  /* FEATURES BAR */
+  .features{
+    background:#1f6b3d;
+    border-radius:16px;
+    padding:20px 0;
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:0;
+    color:#fff;
+  }
+  .features .container{padding:0;max-width:none;}
+  .feature-item{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    text-align:left;
+    gap:10px;
+    padding:0 14px;
+    border-right:1px solid rgba(255,255,255,.25);
+  }
+  .feature-item:last-child{border-right:none;}
+  .feature-icon{
+    color:#fff;
+    width:36px;height:36px;
+    flex-shrink:0;
+  }
+  .feature-icon svg{width:100%;height:100%;display:block;}
+  .feature-item h4{font-size:16px;font-weight:700;margin-bottom:3px;line-height:1.3;}
+  .feature-item p{font-size:13.5px;opacity:.85;line-height:1.45;}
+
+  /* CONTACT FORM SECTION */
+  .contact-section{
+    display:grid;
+    grid-template-columns:1.3fr 1fr;
+    gap:40px;
+    align-items:stretch;
+    background:#fff;
+    border-radius:16px;
+    padding:48px;
+    border:1px solid var(--border);
+  }
+  .contact-left{
+    display:flex;
+    flex-direction:row;
+    align-items:stretch;
+    gap:24px;
+    align-self:stretch;
+  }
+  .contact-left-text{
+    display:flex;
+    flex-direction:column;
+  }
+  .contact-left h2{
+    font-size:32px;
+    color:var(--navy);
+    margin-bottom:16px;
+    font-weight:800;
+    line-height:1.25;
+  }
+  .contact-left p{color:var(--muted);margin-bottom:24px;font-size:18px;line-height:1.5;}
+  .contact-cta-btn{
+    width:280px;
+    text-align:center;
+    padding:13px 20px;
+    font-size:14px;
+  }
+  .contact-plant{
+    width:280px;
+    height:auto;
+    align-self:stretch;
+    border-radius:12px;
+    overflow:hidden;
+    margin-bottom:0;
+    flex-shrink:0;
+  }
+  .contact-plant img{width:100%;height:100%;object-fit:cover;display:block;}
+  .contact-plant-hint{font-size:10px;padding:6px;}
+  .contact-plant-hint .upload-icon{font-size:18px;}
+  .contact-plant-hint span{font-size:10px;max-width:100px;}
+  form{display:flex;flex-direction:column;gap:14px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  input, select, textarea{
+    padding:13px 16px;
+    border:1px solid var(--border);
+    border-radius:8px;
+    font-size:14px;
+    font-family:inherit;
+    width:100%;
+    background:#ffffff;
+  }
+  input:focus, select:focus, textarea:focus{
+    outline:2px solid var(--green);
+    outline-offset:1px;
+  }
+  textarea{resize:vertical;min-height:70px;}
+  .form-footer{
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+  }
+  .consent{font-size:12px;color:var(--muted);max-width:340px;}
+  .consent a{color:var(--green);text-decoration:underline;}
+
+  /* FOOTER */
+  footer{
+    background:var(--navy-dark);
+    color:#cfd6e6;
+    padding:56px 0 0;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns:1.2fr 1fr 1.4fr 1.4fr;
+    gap:32px;
+    padding-bottom:40px;
+  }
+  .footer-logo{margin-bottom:12px;}
+  .logo-svg--footer{
+    height:58px;
+    width:auto;
+    display:block;
+  }
+  .logo-svg--footer text{
+    font-family:Georgia,'Times New Roman',serif;
+    font-style:italic;
+    font-weight:700;
+    font-size:46px;
+    fill:#ffffff;
+  }
+  .footer-grid p{font-size:13px;color:#9aa4bd;margin-bottom:16px;}
+  .socials{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;}
+  .socials a{
+    min-width:34px;height:40px;border-radius:20px;
+    padding:0 18px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.18);
+    display:flex;align-items:center;gap:8px;
+    font-size:13px;font-weight:600;color:#fff;
+    transition:background .2s, border-color .2s;
+  }
+  .socials a:hover{background:var(--green);border-color:var(--green);}
+  .social-btn svg{
+    width:18px;height:18px;
+    flex-shrink:0;
+  }
+  .footer-photo-slot{
+    display:block;
+    margin-top:20px;
+    max-width:100%;
+    max-height:140px;
+    width:auto;
+    border-radius:10px;
+  }
+  footer h5{color:#fff;font-size:14px;margin-bottom:16px;}
+  footer ul li{margin-bottom:10px;}
+  footer ul a{font-size:13px;color:#9aa4bd;transition:color .2s;}
+  footer ul a:hover{color:#fff;}
+  .footer-contacts li{font-size:13px;color:#9aa4bd;margin-bottom:10px;}
+  .footer-bottom{
+    border-top:1px solid rgba(255,255,255,.08);
+    padding:20px 24px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+    font-size:12px;color:#7f8bab;
+  }
+  .footer-bottom a{color:#9aa4bd;}
+  .footer-bottom a:hover{color:#fff;}
+
+  /* TOAST */
+  .toast{
+    position:fixed;bottom:24px;right:24px;
+    background:var(--navy);color:#fff;
+    padding:14px 22px;border-radius:10px;
+    font-size:14px;font-weight:600;
+    box-shadow:0 12px 30px rgba(0,0,0,.2);
+    opacity:0;transform:translateY(20px);
+    transition:all .3s ease;
+    pointer-events:none;
+    z-index:999;
+  }
+  .toast.show{opacity:1;transform:translateY(0);}
+
+  @media(max-width:1000px){
+    .hero{
+      flex-direction:column;
+      display:flex;
+      min-height:auto;
+      padding-bottom:0;
+    }
+    .hero-photo-bleed{
+      position:relative;
+      width:100%;
+      height:340px;
+      order:2;
+      margin-top:36px;
+    }
+    .hero-inner{order:1;}
+    .hero-text{max-width:none;}
+    .cards-grid{grid-template-columns:repeat(2,1fr);}
+    .features{grid-template-columns:repeat(3,1fr);}
+    .contact-section{grid-template-columns:1fr;padding:32px;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+    nav{display:none;}
+    nav#mainNav.open{
+      display:block;
+      position:absolute;
+      top:100%;left:0;right:0;
+      background:#ffffff;
+      border-bottom:1px solid var(--border);
+      box-shadow:0 12px 24px rgba(20,30,60,.08);
+      padding:8px 24px 16px;
+      z-index:99;
+    }
+    nav#mainNav.open ul{
+      flex-direction:column;
+      gap:0;
+    }
+    nav#mainNav.open ul li{
+      border-bottom:1px solid var(--border);
+    }
+    nav#mainNav.open ul li:last-child{border-bottom:none;}
+    nav#mainNav.open ul a{
+      display:block;
+      padding:14px 4px;
+    }
+    .burger{display:flex;}
+  }
+  @media(max-width:640px){
+    .hero-buttons{flex-wrap:wrap;}
+    .cards-grid{grid-template-columns:1fr;}
+    .features{grid-template-columns:1fr 1fr;}
+    .form-row{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    .section-title::before,.section-title::after{width:24px;margin:0 10px;}
+
+    .header-inner{
+      flex-wrap:wrap;
+      row-gap:10px;
+      padding:10px 16px;
+    }
+    .logo-photo{height:54px;max-width:180px;}
+    .logo-svg{height:48px;}
+    .logo-svg text{font-size:36px;}
+    .header-inner > a.btn-green{
+      order:3;
+      width:100%;
+      text-align:center;
+      padding:12px 16px;
+      font-size:14px;
+    }
+    .burger{order:2;}
+
+    .contact-left{
+      flex-direction:column;
+    }
+    .contact-plant{
+      width:100%;
+      height:180px;
+    }
+    .contact-cta-btn{
+      width:100%;
+    }
+  }
+  @media(max-width:400px){
+    .container{padding:0 16px;}
+    .hero-photo-bleed{height:220px;}
+  }
+</style>
+</head>
+<body>
+
+<div id="top"></div>
+<header>
+  <div class="header-inner">
+    <a href="#top" class="logo">
+      <img class="logo-photo" src="images/logo.png" alt="АВИЛ" onerror="this.style.display='none'" onload="this.nextElementSibling.style.display='none'">
+      <svg viewBox="0 0 190 56" class="logo-svg" role="img" aria-label="АВИЛ">
+        <text x="0" y="42" style="letter-spacing:-16px"><tspan dy="0">А</tspan><tspan dy="3">В</tspan><tspan dy="-3">И</tspan><tspan dy="4">Л</tspan></text>
+      </svg>
+    </a>
+    <nav id="mainNav">
+      <ul>
+        <li><a href="#top">Главная</a></li>
+        <li><a href="#directions">Направления</a></li>
+        <li><a href="#advantages">Преимущества</a></li>
+        <li><a href="#contacts">Контакты</a></li>
+      </ul>
+    </nav>
+    <a href="#contact-form" class="btn btn-green">Получить консультацию</a>
+    <button class="burger" id="burgerBtn" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-photo-bleed">
+    <div class="hero-image-inner" id="heroImageInner">
+      <div class="photo-slot" data-filename="hero.jpg">
+        <img src="images/hero.jpg" alt="Оснащённый кабинет" onerror="this.style.display='none';this.parentElement.classList.add('empty')">
+        <div class="photo-slot-hint">
+          <div class="upload-icon">🖼️</div>
+          <span>Поместите файл<br><b>images/hero.jpg</b><br>чтобы фото появилось здесь</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <h1>Комплексное оснащение образовательных учреждений</h1>
+      <p>Оборудование, мебель, техника и решения для школ, детских садов, ВУЗов и специализированных кабинетов.</p>
+      <div class="hero-slogan">Мы не просто продаём, мы решаем вашу проблему</div>
+      <div class="hero-buttons">
+        <a href="#directions" class="btn btn-green">Смотреть направления</a>
+        <a href="#contact-form" class="btn btn-outline">Получить консультацию</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="directions" style="background:#f2efe6;">
+  <div class="container">
+    <h2 class="section-title">Направления</h2>
+    <div class="cards-grid" id="cardsGrid"></div>
+  </div>
+</section>
+
+<section class="section" id="advantages" style="padding-top:40px;">
+  <div class="container">
+    <div class="features" id="featuresBar"></div>
+  </div>
+</section>
+
+<section class="section" id="contact-form">
+  <div class="container">
+    <div class="contact-section">
+      <div class="contact-left">
+        <div class="contact-plant photo-slot" data-filename="contact-plant.jpg">
+          <img src="images/contact-plant.jpg" alt="" onerror="this.style.display='none';this.parentElement.classList.add('empty')">
+          <div class="photo-slot-hint contact-plant-hint">
+            <div class="upload-icon">🌿</div>
+            <span>Поместите файл<br><b>images/contact-plant.jpg</b></span>
+          </div>
+        </div>
+        <div class="contact-left-text">
+        <h2>Нужно комплексно оснастить образовательное учреждение?</h2>
+          <p>Подберём оборудование, мебель, технику и решения под ваши задачи и бюджет.</p>
+          <a href="#contact-form" class="btn btn-green contact-cta-btn">Получить консультацию</a>
+        </div>
+      </div>
+      <div class="contact-right">
+        <form id="leadForm">
+          <div class="form-row">
+            <input type="text" id="fieldName" placeholder="Ваше имя" required>
+            <input type="tel" id="fieldPhone" placeholder="Телефон" required>
+          </div>
+          <div class="form-row">
+            <input type="email" id="fieldEmail" placeholder="E-mail">
+            <input type="text" id="fieldOrg" placeholder="Организация">
+          </div>
+          <select id="fieldDirection">
+            <option value="">Интересующее направление</option>
+            <option>Игрушки для детских садов и яслей</option>
+            <option>ОБЗИР, труд и технологии</option>
+            <option>Медкабинеты, ОВЗ</option>
+            <option>Пищеблоки</option>
+            <option>Актовые залы и интерактивные решения</option>
+            <option>Спортинвентарь</option>
+            <option>Мебель</option>
+            <option>ПК, периферия и ПО</option>
+          </select>
+          <textarea id="fieldComment" placeholder="Комментарий"></textarea>
+          <div class="form-footer">
+            <p class="consent">Нажимая кнопку, вы соглашаетесь с <a href="#">политикой обработки персональных данных</a></p>
+            <button type="submit" class="btn btn-green">Отправить заявку</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contacts">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <p>Комплексное оснащение образовательных учреждений</p>
+        <img class="footer-photo-slot" src="images/logo2.png" alt="" onerror="this.style.display='none'">
+      </div>
+      <div>
+        <h5>Навигация</h5>
+        <ul>
+          <li><a href="#top">Главная</a></li>
+          <li><a href="#directions">Направления</a></li>
+          <li><a href="#advantages">Преимущества</a></li>
+          <li><a href="#contacts">Контакты</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Направления</h5>
+        <ul>
+          <li><a href="#">Игрушки для детских садов и яслей</a></li>
+          <li><a href="#">ОБЗИР, труд и технологии</a></li>
+          <li><a href="#">Медкабинеты и ОВЗ</a></li>
+          <li><a href="#">Пищеблоки</a></li>
+          <li><a href="#">Актовые залы и интерактивные решения</a></li>
+          <li><a href="#">Спортинвентарь</a></li>
+          <li><a href="#">Мебель</a></li>
+          <li><a href="#">ПК, периферия и ПО</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Контакты</h5>
+        <ul class="footer-contacts">
+          <li>8 938 113-56-66</li>
+          <li>8 905 459-75-40</li>
+          <li>avers161snab@yandex.ru</li>
+          <li>РО, г. Новочеркасск</li>
+          <li>Пн – Пт: 9:00 – 18:00</li>
+        </ul>
+        <div class="socials">
+          <a href="https://t.me/Dinsdady" class="social-btn" title="Telegram" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="21" y1="3" x2="10" y2="14"/><polygon points="21 3 14.5 21 10 14 3 9.5 21 3"/></svg>
+            <span>Telegram</span>
+          </a>
+          <a href="https://max.ru/u/f9LHodD0cOL5BsIaFLG7L3yWyt7ova9URN0XeT3k3Pm4EgLC764YRgebFyY" class="social-btn" title="MAX" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5 8.4 8.4 0 0 1-3.9-.95L3 21l1.95-5.6A8.4 8.4 0 0 1 3.5 11.5 8.5 8.5 0 0 1 12 3a8.5 8.5 0 0 1 9 8.5z"/></svg>
+            <span>MAX</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 АВИЛ. Все права защищены.</span>
+      <span><a href="#">Политика конфиденциальности</a> &nbsp;|&nbsp; <a href="#">Согласие на обработку персональных данных</a></span>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast">Заявка отправлена!</div>
+
+<script>
+const directions = [
+  {n:'01', title:'Игрушки для детских садов и яслей', text:'Развивающие, игровые и образовательные материалы для детей дошкольного возраста.'},
+  {n:'02', title:'Оснащение и оборудование для ОБЗИР, труда и технологии', text:'Оборудование, инструменты и учебные комплексы для кабинетов ОБЗИР, труда и технологии.'},
+  {n:'03', title:'Оснащение медкабинетов, кабинетов логопеда, психолога-дефектолога и ОВЗ', text:'Комплексное оснащение специализированных кабинетов для диагностики и развития детей.'},
+  {n:'04', title:'Оборудование и оснащение пищеблока ДОУ и СОШ', text:'Профессиональное оборудование, мебель и инвентарь для организации пищеблоков образовательных учреждений.'},
+  {n:'05', title:'Актовые залы и интерактивные решения для ДОУ и ВУЗов', text:'Мультимедийное оборудование, интерактивные системы и решения для актовых залов и образовательных пространств.'},
+  {n:'06', title:'Спортинвентарь для СДШ и СОШ', text:'Спортивное оборудование и инвентарь для оснащения спортивных залов и образовательных учреждений.'},
+  {n:'07', title:'Мебель для оснащения кабинетов ДОУ, СОШ и ВУЗов', text:'Школьная, дошкольная и специализированная мебель для современных образовательных пространств.'},
+  {n:'08', title:'Поставки ПК, периферии и ПО', text:'Компьютеры, ноутбуки, периферийное оборудование, программное обеспечение и комплексные IT-решения.'}
+];
+
+const grid = document.getElementById('cardsGrid');
+grid.innerHTML = directions.map(d => `
+  <div class="card">
+    <div class="card-media">
+      <div class="photo-slot" data-filename="direction-${d.n}.jpg">
+        <img src="images/direction-${d.n}.jpg" alt="${d.title}" onerror="this.style.display='none';this.parentElement.classList.add('empty')">
+        <div class="photo-slot-hint">
+          <div class="upload-icon">📷</div>
+          <span>Поместите файл<br><b>images/direction-${d.n}.jpg</b></span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>${d.title}</h3>
+      <p>${d.text}</p>
+      <a href="#" class="card-link">Подробнее →</a>
+    </div>
+  </div>
+`).join('');
+
+const featureIcons = {
+  box: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg>',
+  target: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.6"/></svg>',
+  list: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="9" y1="6" x2="21" y2="6"/><line x1="9" y1="12" x2="21" y2="12"/><line x1="9" y1="18" x2="21" y2="18"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg>',
+  people: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+  doc: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>',
+  user: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/></svg>'
+};
+const features = [
+  {icon:featureIcons.box, title:'Комплексный подход', text:'От подбора оборудования до полной комплектации помещения'},
+  {icon:featureIcons.target, title:'Под задачи учреждения', text:'Решения под конкретный кабинет, помещение или образовательную программу'},
+  {icon:featureIcons.list, title:'Широкий ассортимент', text:'Мебель, оборудование, техника и программное обеспечение'},
+  {icon:featureIcons.people, title:'Работа с организациями', text:'Ориентация на потребности образовательных и государственных учреждений'},
+  {icon:featureIcons.doc, title:'Документы и сопровождение', text:'Подготовка необходимой документации для закупок и поставок'},
+  {icon:featureIcons.user, title:'Консультация специалиста', text:'Поможем в выборе оптимального решения'}
+];
+document.getElementById('featuresBar').innerHTML = features.map(f => `
+  <div class="feature-item">
+    <div class="feature-icon">${f.icon}</div>
+    <h4>${f.title}</h4>
+    <p>${f.text}</p>
+  </div>
+`).join('');
+
+document.getElementById('burgerBtn').addEventListener('click', () => {
+  document.getElementById('mainNav').classList.toggle('open');
+});
+
+document.querySelectorAll('#mainNav a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('mainNav').classList.remove('open');
+  });
+});
+
+document.getElementById('leadForm').addEventListener('submit', function(e){
+  e.preventDefault();
+
+  const name = document.getElementById('fieldName').value.trim();
+  const phone = document.getElementById('fieldPhone').value.trim();
+  const email = document.getElementById('fieldEmail').value.trim();
+  const org = document.getElementById('fieldOrg').value.trim();
+  const direction = document.getElementById('fieldDirection').value.trim();
+  const comment = document.getElementById('fieldComment').value.trim();
+
+  const toast = document.getElementById('toast');
+  const formEl = this;
+
+  function fallbackMailto(){
+    const subject = 'Заявка с сайта АВИЛ' + (name ? ' — ' + name : '');
+    const bodyLines = [
+      'Новая заявка с сайта АВИЛ:',
+      '',
+      'Имя: ' + (name || '-'),
+      'Телефон: ' + (phone || '-'),
+      'E-mail: ' + (email || '-'),
+      'Организация: ' + (org || '-'),
+      'Интересующее направление: ' + (direction || '-'),
+      'Комментарий: ' + (comment || '-')
+    ];
+    const body = bodyLines.join('\n');
+    const mailtoLink = 'mailto:avers161snab@yandex.ru'
+      + '?subject=' + encodeURIComponent(subject)
+      + '&body=' + encodeURIComponent(body);
+    window.location.href = mailtoLink;
+    toast.textContent = 'Сейчас откроется ваша почтовая программа для отправки заявки';
+    toast.classList.add('show');
+    setTimeout(()=>toast.classList.remove('show'), 4000);
+  }
+
+  // Пытаемся отправить через send.php (настоящий бэкенд на хостинге).
+  // Если хостинга с PHP ещё нет (файл send.php недоступен / открыт локально
+  // без сервера) — автоматически используем запасной вариант через mailto.
+  fetch('send.php', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    body: new URLSearchParams({name, phone, email, org, direction, comment})
+  })
+  .then(res => {
+    if (!res.ok) throw new Error('send.php недоступен');
+    return res.json();
+  })
+  .then(data => {
+    if (data.success) {
+      toast.textContent = 'Заявка отправлена! Мы свяжемся с вами в ближайшее время.';
+      toast.classList.add('show');
+      setTimeout(()=>toast.classList.remove('show'), 4000);
+      formEl.reset();
+    } else {
+      fallbackMailto();
+    }
+  })
+  .catch(() => {
+    fallbackMailto();
+  });
+
+  formEl.reset();
+});
+</script>
+
+</body>
+</html>
