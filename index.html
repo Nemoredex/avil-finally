@@ -17,10 +17,9 @@
     --border:#e7e3da;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  html, body{max-width:100%;overflow-x:hidden;}
-  img{max-width:100%;display:block;}
+  html{scroll-behavior:smooth;overflow-x:hidden;}
   body{
+    overflow-x:hidden;
     font-family:'Segoe UI',Arial,sans-serif;
     color:var(--text);
     background:#ffffff;
@@ -103,7 +102,7 @@
   }
   .hero-text{max-width:520px;}
   .hero h1{
-    font-size:clamp(30px, 7vw, 62px);
+    font-size:62px;
     font-weight:800;
     color:var(--navy);
     line-height:1.12;
@@ -111,7 +110,7 @@
   }
   .hero p{
     color:#3f4f7a;
-    font-size:clamp(16px, 4vw, 22px);
+    font-size:22px;
     margin-bottom:40px;
     max-width:560px;
     line-height:1.5;
@@ -119,7 +118,7 @@
   .hero-slogan{
     font-style:italic;
     font-weight:700;
-    font-size:clamp(14px, 3.5vw, 19px);
+    font-size:19px;
     color:var(--green-dark);
     border-left:3px solid var(--green);
     padding-left:16px;
@@ -189,6 +188,11 @@
   .photo-slot img{
     width:100%;height:100%;object-fit:cover;display:block;
   }
+  .photo-slot--contain img{
+    object-fit:contain;
+    padding:10px;
+    box-sizing:border-box;
+  }
   .photo-slot-hint{
     display:none;
     position:absolute;inset:0;
@@ -246,8 +250,8 @@
   .card-media{
     position:relative;
     width:100%;
-    aspect-ratio:16/9;
-    background:var(--cream);
+    aspect-ratio:4/3;
+    background:#ffffff;
     border-bottom:1px solid var(--border);
   }
   .card-body{
@@ -342,7 +346,7 @@
     font-size:14px;
   }
   .contact-plant{
-    width:280px;
+    width:210px;
     height:auto;
     align-self:stretch;
     border-radius:12px;
@@ -497,46 +501,25 @@
       padding:14px 4px;
     }
     .burger{display:flex;}
+    .header-inner > .btn-green{display:none;}
+    .header-inner{gap:12px;}
+    .hero h1{font-size:38px;}
+    .hero p{font-size:16px;max-width:none;}
+    .hero-slogan{font-size:15px;}
+    .hero-buttons{flex-wrap:wrap;}
+    .hero-buttons .btn{white-space:normal;}
   }
   @media(max-width:640px){
     .hero-buttons{flex-wrap:wrap;}
+    .hero h1{font-size:30px;}
+    .hero p{font-size:15px;}
     .cards-grid{grid-template-columns:1fr;}
     .features{grid-template-columns:1fr 1fr;}
     .form-row{grid-template-columns:1fr;}
     .footer-grid{grid-template-columns:1fr;}
     .section-title::before,.section-title::after{width:24px;margin:0 10px;}
-
-    .header-inner{
-      flex-wrap:wrap;
-      row-gap:10px;
-      padding:10px 16px;
-    }
-    .logo-photo{height:54px;max-width:180px;}
+    .logo-photo{height:44px;max-width:160px;}
     .logo-svg{height:48px;}
-    .logo-svg text{font-size:36px;}
-    .header-inner > a.btn-green{
-      order:3;
-      width:100%;
-      text-align:center;
-      padding:12px 16px;
-      font-size:14px;
-    }
-    .burger{order:2;}
-
-    .contact-left{
-      flex-direction:column;
-    }
-    .contact-plant{
-      width:100%;
-      height:180px;
-    }
-    .contact-cta-btn{
-      width:100%;
-    }
-  }
-  @media(max-width:400px){
-    .container{padding:0 16px;}
-    .hero-photo-bleed{height:220px;}
   }
 </style>
 </head>
@@ -728,7 +711,7 @@ const grid = document.getElementById('cardsGrid');
 grid.innerHTML = directions.map(d => `
   <div class="card">
     <div class="card-media">
-      <div class="photo-slot" data-filename="direction-${d.n}.jpg">
+      <div class="photo-slot photo-slot--contain" data-filename="direction-${d.n}.jpg">
         <img src="images/direction-${d.n}.jpg" alt="${d.title}" onerror="this.style.display='none';this.parentElement.classList.add('empty')">
         <div class="photo-slot-hint">
           <div class="upload-icon">📷</div>
